@@ -12,15 +12,13 @@ function getTextForTitle(datum) {
   const {
     person: { totalReports },
   } = datum
-  let pluralEnding = ''
-  if (totalReports > 1 && totalReports < 5) {
-    pluralEnding = 'а'
-  }
-  else {
-    pluralEnding = 'ов'
-  }
-
-  return `${totalReports} документ${pluralEnding}`
+  const cases = [2, 0, 1, 1, 1, 2];
+  const value = ["документ", "документа", "документов"]
+  return totalReports + '    ' + value[
+    totalReports % 100 > 4 && totalReports % 100 < 20
+      ? 2
+      : cases[totalReports % 10 < 5 ? totalReports % 10 : 5]
+    ];
 }
 
 const departmentAbbrMap = {
