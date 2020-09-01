@@ -78,7 +78,6 @@ function render(config) {
     .insert('g')
     .attr('class', CHART_NODE_CLASS)
     .attr('transform', `translate(${parentNode.x0}, ${parentNode.y0})`)
-    .on('click', onClick(config))
 
   // Person Card Shadow
   nodeEnter
@@ -104,7 +103,6 @@ function render(config) {
     .attr('stroke', borderColor)
     .attr('rx', nodeBorderRadius)
     .attr('ry', nodeBorderRadius)
-    .style('cursor', helpers.getCursorForNode)
 
   const namePos = {
     x: nodeWidth / 2,
@@ -123,7 +121,7 @@ function render(config) {
     .attr('x', namePos.x)
     .attr('y', namePos.y)
     .attr('dy', '.3em')
-    .style('cursor', 'pointer')
+    //.style('cursor', 'pointer')
     .style('fill', nameColor)
     .style('font-size', 14)
     .text(d => d.person.name)
@@ -137,7 +135,7 @@ function render(config) {
     .attr('y', namePos.y + nodePaddingY * 2.4)
     .attr('dy', '0.1em')
     .style('font-size', 12)
-    .style('cursor', 'pointer')
+    //.style('cursor', 'pointer')
     .style('fill', titleColor)
     .text(d => d.person.title)
 
@@ -155,6 +153,7 @@ function render(config) {
     .style('cursor', 'pointer')
     .style('fill', reportsColor)
     .text(helpers.getTextForTitle)
+    .on('click', onClick(config))
 
   // Person's Avatar
   nodeEnter

@@ -12,7 +12,7 @@ body {
 #root,
 #react-org-chart {
   margin: 0;
-  cursor: move;
+  cursor: default;
   height: 100%;
   width: 100%;
   background-color: #f7f9fa;
@@ -21,10 +21,10 @@ body {
   font-weight: 500;
 }
 .org-chart-person-link:hover g {
-  fill: #409cf9 !important;
+  fill: red !important;
 }
-.org-chart-node:hover .org-chart-person-reports {
-  fill: #409cf9 !important;
+.org-chart-person-reports:hover {
+  fill: red !important;
 }
 .org-chart-person-dept.engineering {
   fill: #4caf50 !important;
