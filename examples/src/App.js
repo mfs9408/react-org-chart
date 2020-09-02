@@ -148,6 +148,9 @@ export default class App extends React.Component {
                 const childrenData = this.getChild(d.id)
                 return childrenData
               }}
+              onNodeClick={node => {
+                console.log('NODE CLICK CLOCK!', node)
+              }}
             />
           </React.Fragment>
         </Route>

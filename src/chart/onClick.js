@@ -10,7 +10,8 @@ function onClick(configOnClick) {
     if (d3.event.defaultPrevented) return
     const config = loadConfig()
     const { loadChildren, render, onPersonClick } = config
-    event.preventDefault()
+    event.preventDefault();
+    event.stopPropagation();
 
     if (onPersonClick) {
       const result = onPersonClick(datum, d3.event)

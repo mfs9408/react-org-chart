@@ -40,6 +40,7 @@ function render(config) {
     elemWidth,
     margin,
     onConfigChange,
+    onNodeClick,
   } = config
 
   // Compute the new tree layout.
@@ -55,10 +56,9 @@ function render(config) {
   })
 
   // Update the nodes
-  const node = svg.selectAll('g.' + CHART_NODE_CLASS).data(
-    nodes.filter(d => d.id),
-    d => d.id
-  )
+  const node = svg
+    .selectAll('g.' + CHART_NODE_CLASS)
+    .data(nodes.filter(d => d.id), d => d.id)
 
   const parentNode = sourceNode || treeData
 
@@ -78,6 +78,11 @@ function render(config) {
     .insert('g')
     .attr('class', CHART_NODE_CLASS)
     .attr('transform', `translate(${parentNode.x0}, ${parentNode.y0})`)
+    .on('click', node => {
+      if (d3.event.defaultPrevented) return
+
+      typeof onNodeClick === 'function' && onNodeClick(node)
+    })
 
   // Person Card Shadow
   nodeEnter
