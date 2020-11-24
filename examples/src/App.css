@@ -97,3 +97,10 @@ body {
   margin-left: 8px;
   margin-right: 16px;
 }
+
+tspan {
+  text-overflow: ellipsis; /* will make [...] at the end */
+  white-space: nowrap; /* paragraph to one line */
+  color: red;
+  width: 20px;
+}

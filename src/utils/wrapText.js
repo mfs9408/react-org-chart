@@ -14,10 +14,14 @@ module.exports = function wrapText(text, width) {
     const y = text.attr('y')
     const dy = parseFloat(text.attr('dy'))
     const lineHeight = 1.1
-    const words = text
-      .text()
+    const words = text.text()
+      .slice(0, 90)
       .split(/\s+/)
       .reverse()
+
+    if (text.text().length > 90) {
+      words.unshift('...')
+    }
 
     let lineNumber = 0
     let word
@@ -37,7 +41,7 @@ module.exports = function wrapText(text, width) {
       if (tspan.node().getComputedTextLength() > width) {
         line.pop()
         tspan.text(line.join(' '))
-        line = [word]
+        line = [word.slice(0,13)]
         tspan = text
           .append('tspan')
           .style('text-anchor', 'middle')
@@ -45,6 +49,7 @@ module.exports = function wrapText(text, width) {
           .attr('y', y)
           .attr('dy', ++lineNumber * lineHeight + dy + 'em')
           .text(word)
+        console.log(word)
       }
     }
 
