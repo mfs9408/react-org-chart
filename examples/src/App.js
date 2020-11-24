@@ -17,7 +17,7 @@ export default class App extends React.Component {
     }
   }
 
-  getChild = id => {
+  getChild = (id) => {
     switch (id) {
       case 100:
         return tree1
@@ -32,7 +32,7 @@ export default class App extends React.Component {
     }
   }
 
-  getParent = d => {
+  getParent = (d) => {
     if (d.id === 100) {
       return {
         id: 500,
@@ -72,13 +72,35 @@ export default class App extends React.Component {
     this.setState({ downloadingChart: false })
   }
 
-  handleOnChangeConfig = config => {
+  handleOnChangeConfig = (config) => {
     this.setState({ config: config })
   }
 
   handleLoadConfig = () => {
     const { config } = this.state
     return config
+  }
+
+  getPluralsText = (totalReports, locale) => {
+    if (locale === 'ru') {
+      const pluralText = ['документ', 'документа', 'документов']
+      const cases = [2, 0, 1, 1, 1, 2]
+      return (
+        totalReports +
+        ' ' +
+        pluralText[
+          totalReports % 100 > 4 && totalReports % 100 < 20
+            ? 2
+            : cases[totalReports % 10 < 5 ? totalReports % 10 : 5]
+        ]
+      )
+    }
+    if (locale === 'en') {
+      const pluralText = 'document'
+      const ending = totalReports > 1 ? 's' : ''
+      return `${totalReports}` + ' ' + `${pluralText}` + `${ending}`
+    }
+    return console.log(`Функция получила ${locale}`)
   }
 
   render() {
@@ -123,32 +145,34 @@ export default class App extends React.Component {
             </div>
             <OrgChart
               tree={tree}
+              getPluralsText={this.getPluralsText}
+              locale="ru"
               downloadImageId={downloadImageId}
               downloadPdfId={downloadPdfId}
-              onConfigChange={config => {
+              onConfigChange={(config) => {
                 this.handleOnChangeConfig(config)
               }}
-              loadConfig={d => {
+              loadConfig={(d) => {
                 let configuration = this.handleLoadConfig(d)
                 if (configuration) {
                   return configuration
                 }
               }}
-              downlowdedOrgChart={d => {
+              downlowdedOrgChart={(d) => {
                 this.handleDownload()
               }}
-              loadImage={d => {
+              loadImage={(d) => {
                 return Promise.resolve(avatarPersonnel)
               }}
-              loadParent={d => {
+              loadParent={(d) => {
                 const parentData = this.getParent(d)
                 return parentData
               }}
-              loadChildren={d => {
+              loadChildren={(d) => {
                 const childrenData = this.getChild(d.id)
                 return childrenData
               }}
-              onNodeClick={node => {
+              onNodeClick={(node) => {
                 console.log('NODE CLICK CLOCK!', node)
               }}
             />
