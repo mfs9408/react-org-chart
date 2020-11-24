@@ -41,6 +41,7 @@ function render(config) {
     margin,
     onConfigChange,
     onNodeClick,
+    textForTitle
   } = config
 
   // Compute the new tree layout.
@@ -157,7 +158,7 @@ function render(config) {
     .style('font-weight', 400)
     .style('cursor', 'pointer')
     .style('fill', reportsColor)
-    .text(helpers.getTextForTitle)
+    .text(helpers.getTextForTitle(config))
     .on('click', onClick(config))
 
   // Person's Avatar

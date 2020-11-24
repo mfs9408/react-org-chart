@@ -123,6 +123,7 @@ export default class App extends React.Component {
             </div>
             <OrgChart
               tree={tree}
+              textForTitle={["документ", "документа", "документов"]}
               downloadImageId={downloadImageId}
               downloadPdfId={downloadPdfId}
               onConfigChange={config => {
