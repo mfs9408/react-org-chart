@@ -3,22 +3,13 @@ module.exports = {
   getTextForDepartment,
   getCursorForNode,
 }
-function getTextForTitle (config) {
+function getTextForTitle(config) {
   return function (datum) {
     if (!datum.person || !datum.person.totalReports) {
       return ''
     }
-
-    const {
-      person: { totalReports },
-   } = datum
-   const cases = [2, 0, 1, 1, 1, 2];
-    const { textForTitle } = config
-   return totalReports + ' ' + textForTitle[
-      totalReports % 100 > 4 && totalReports % 100 < 20
-        ? 2
-        : cases[totalReports % 10 < 5 ? totalReports % 10 : 5]
-      ];
+    const { getPluralsText } = config
+    return getPluralsText(datum)
   }
 }
 

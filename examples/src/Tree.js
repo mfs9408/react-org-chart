@@ -8,7 +8,7 @@ export const tree = {
     department: '',
     name: 'Henry monger',
     title: 'Manager',
-    totalReports: 10,
+    totalReports: 21,
   },
   hasChild: true,
   hasParent: true,

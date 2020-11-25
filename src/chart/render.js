@@ -41,7 +41,7 @@ function render(config) {
     margin,
     onConfigChange,
     onNodeClick,
-    textForTitle
+    getPluralsText
   } = config
 
   // Compute the new tree layout.
