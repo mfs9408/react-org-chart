@@ -53,7 +53,7 @@ module.exports = function wrapText(text, width) {
       if (tspan.node().getComputedTextLength() > width) {
         line.pop()
         tspan.text(line.join(' '))
-        line = [word.slice(0, 13)]
+        line = [word]
         tspan = text
           .append('tspan')
           .style('text-anchor', 'middle')
