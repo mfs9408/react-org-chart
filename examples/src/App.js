@@ -17,7 +17,7 @@ export default class App extends React.Component {
     }
   }
 
-  getChild = id => {
+  getChild = (id) => {
     switch (id) {
       case 100:
         return tree1
@@ -32,7 +32,7 @@ export default class App extends React.Component {
     }
   }
 
-  getParent = d => {
+  getParent = (d) => {
     if (d.id === 100) {
       return {
         id: 500,
@@ -72,7 +72,7 @@ export default class App extends React.Component {
     this.setState({ downloadingChart: false })
   }
 
-  handleOnChangeConfig = config => {
+  handleOnChangeConfig = (config) => {
     this.setState({ config: config })
   }
 
@@ -82,6 +82,9 @@ export default class App extends React.Component {
   }
 
   render() {
+    // const smth = ['высокопроизводительный', 'высокотехнологичный', 'комп']
+    // console.log(smth[0].concat('-'))
+
     const { tree, downloadingChart } = this.state
 
     //For downloading org chart as image or pdf based on id
@@ -125,30 +128,30 @@ export default class App extends React.Component {
               tree={tree}
               downloadImageId={downloadImageId}
               downloadPdfId={downloadPdfId}
-              onConfigChange={config => {
+              onConfigChange={(config) => {
                 this.handleOnChangeConfig(config)
               }}
-              loadConfig={d => {
+              loadConfig={(d) => {
                 let configuration = this.handleLoadConfig(d)
                 if (configuration) {
                   return configuration
                 }
               }}
-              downlowdedOrgChart={d => {
+              downlowdedOrgChart={(d) => {
                 this.handleDownload()
               }}
-              loadImage={d => {
+              loadImage={(d) => {
                 return Promise.resolve(avatarPersonnel)
               }}
-              loadParent={d => {
+              loadParent={(d) => {
                 const parentData = this.getParent(d)
                 return parentData
               }}
-              loadChildren={d => {
+              loadChildren={(d) => {
                 const childrenData = this.getChild(d.id)
                 return childrenData
               }}
-              onNodeClick={node => {
+              onNodeClick={(node) => {
                 console.log('NODE CLICK CLOCK!', node)
               }}
             />

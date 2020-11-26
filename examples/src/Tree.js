@@ -4,10 +4,9 @@ export const tree = {
   id: 100,
   person: {
     id: 100,
-    avatar: avatarPersonnel,
     department: '',
-    name: 'высокопроизводительный электромеханический привод monger Henry monger Henry monger ',
-    title: 'Manager',
+    name:
+      'НельзяТакПростоВзятьИРешитьПроблему электромеханического привода Henry monger Henry monger Henry monger',
     totalReports: 10,
   },
   hasChild: true,
@@ -20,10 +19,8 @@ export const tree1 = [
     id: 36,
     person: {
       id: 36,
-      avatar: avatarPersonnel,
-      department: '',
-      name: 'Tomasz polaski',
-      title: 'IT Specialist',
+      name:
+        'Положение компании Салым Петролеум Девеломпент по системе управления охраной труда | в компании Салым Петролеум Девеломпент',
       totalReports: 4,
     },
     hasChild: true,

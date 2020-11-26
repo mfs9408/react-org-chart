@@ -8,18 +8,30 @@ module.exports = function wrapText(text, width) {
 
   let editedClass = ''
 
-  text[0].forEach(textNode => {
+  text[0].forEach((textNode) => {
     const text = d3.select(textNode)
     const x = text.attr('x')
     const y = text.attr('y')
     const dy = parseFloat(text.attr('dy'))
     const lineHeight = 1.1
-    const words = text.text()
-      .slice(0, 90)
-      .split(/\s+/)
-      .reverse()
+    const arrayOfWords = text.text().slice(0, 90).split(/\s+/)
 
-    if (text.text().length > 90) {
+    const words = []
+
+    arrayOfWords.forEach((word) => {
+      if (word.length > 13) {
+        const newArray = word.match(/.{1,12}/g)
+        for (let i = 0; i < newArray.length; i++) {
+          if (i < newArray.length - 1) {
+            words.push(newArray[i].concat('-'))
+          } else words.push(newArray[i])
+        }
+      } else words.push(word)
+    })
+
+    words.reverse()
+
+    if (text.text().length > 95) {
       words.unshift('...')
     }
 
@@ -41,7 +53,7 @@ module.exports = function wrapText(text, width) {
       if (tspan.node().getComputedTextLength() > width) {
         line.pop()
         tspan.text(line.join(' '))
-        line = [word.slice(0,13)]
+        line = [word.slice(0, 13)]
         tspan = text
           .append('tspan')
           .style('text-anchor', 'middle')
@@ -49,7 +61,7 @@ module.exports = function wrapText(text, width) {
           .attr('y', y)
           .attr('dy', ++lineNumber * lineHeight + dy + 'em')
           .text(word)
-        console.log(word)
+        // console.log(word)
       }
     }
 
