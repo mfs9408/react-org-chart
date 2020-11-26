@@ -17,7 +17,7 @@ export default class App extends React.Component {
     }
   }
 
-  getChild = id => {
+  getChild = (id) => {
     switch (id) {
       case 100:
         return tree1
@@ -32,7 +32,7 @@ export default class App extends React.Component {
     }
   }
 
-  getParent = d => {
+  getParent = (d) => {
     if (d.id === 100) {
       return {
         id: 500,
@@ -72,13 +72,55 @@ export default class App extends React.Component {
     this.setState({ downloadingChart: false })
   }
 
-  handleOnChangeConfig = config => {
+  handleOnChangeConfig = (config) => {
     this.setState({ config: config })
   }
 
   handleLoadConfig = () => {
     const { config } = this.state
     return config
+  }
+
+  getPluralsText = (datum) => {
+    const locale = 'en'
+
+    const {
+      person: { totalReports },
+    } = datum
+
+    if (locale === 'ru') {
+      const pluralTextForTitle = {
+        one: 'документ',
+        few: 'документа',
+        many: 'документов',
+        other: 'документы',
+      }
+
+      if (totalReports % 10 == 1 && totalReports % 11 !== 11)
+        return totalReports + ' ' + pluralTextForTitle.one
+      if (totalReports % 10 >= 2 && totalReports % 10 <= 4)
+        return totalReports + ' ' + pluralTextForTitle.few
+      if (
+        totalReports % 10 == 0 ||
+        (totalReports % 10 >= 5 && totalReports % 10 <= 9) ||
+        (totalReports % 100 >= 11 && totalReports <= 14)
+      )
+        return totalReports + ' ' + pluralTextForTitle.many
+      else return totalReports + ' ' + pluralTextForTitle.other
+    }
+
+    if (locale === 'en') {
+      const pluralTextForTitle = {
+        one: 'document',
+        other: 'documents',
+      }
+      if (totalReports == 1) {
+        return totalReports + ' ' + pluralTextForTitle.one
+      }
+      if (totalReports > 1) {
+        return totalReports + ' ' + pluralTextForTitle.other
+      }
+    }
   }
 
   render() {
@@ -123,32 +165,33 @@ export default class App extends React.Component {
             </div>
             <OrgChart
               tree={tree}
+              getPluralsText={(datum) => this.getPluralsText(datum)}
               downloadImageId={downloadImageId}
               downloadPdfId={downloadPdfId}
-              onConfigChange={config => {
+              onConfigChange={(config) => {
                 this.handleOnChangeConfig(config)
               }}
-              loadConfig={d => {
+              loadConfig={(d) => {
                 let configuration = this.handleLoadConfig(d)
                 if (configuration) {
                   return configuration
                 }
               }}
-              downlowdedOrgChart={d => {
+              downlowdedOrgChart={(d) => {
                 this.handleDownload()
               }}
-              loadImage={d => {
+              loadImage={(d) => {
                 return Promise.resolve(avatarPersonnel)
               }}
-              loadParent={d => {
+              loadParent={(d) => {
                 const parentData = this.getParent(d)
                 return parentData
               }}
-              loadChildren={d => {
+              loadChildren={(d) => {
                 const childrenData = this.getChild(d.id)
                 return childrenData
               }}
-              onNodeClick={node => {
+              onNodeClick={(node) => {
                 console.log('NODE CLICK CLOCK!', node)
               }}
             />
