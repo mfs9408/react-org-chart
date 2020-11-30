@@ -14,20 +14,29 @@ module.exports = function wrapText(text, width) {
     const y = text.attr('y')
     const dy = parseFloat(text.attr('dy'))
     const lineHeight = 1.1
-    const arrayOfWords = text.text().slice(0, 90).split(/\s+/)
+    const words = text
+      .text()
+      .slice(0, 95)
+      .split(/\s+/)
+      .reduce(breakLongWords, [])
 
-    const words = []
+    function breakLongWords(acc, word) {
+      if (word.length <= 13) return [...acc, word]
 
-    arrayOfWords.forEach((word) => {
-      if (word.length > 13) {
-        const newArray = word.match(/.{1,12}/g)
-        for (let i = 0; i < newArray.length; i++) {
-          if (i < newArray.length - 1) {
-            words.push(newArray[i].concat('-'))
-          } else words.push(newArray[i])
-        }
-      } else words.push(word)
-    })
+      const matches = word.match(/.{1,12}/g)
+
+      return [
+        ...acc,
+        ...matches.map(addDashToWordExceptLast(matches.length - 1)),
+      ]
+    }
+
+    function addDashToWordExceptLast(lastIndex) {
+      return function (word, index) {
+        if (index === lastIndex) return word
+        return `${word}-`
+      }
+    }
 
     words.reverse()
 
