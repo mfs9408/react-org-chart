@@ -8,7 +8,7 @@ module.exports = function wrapText(text, width) {
 
   let editedClass = ''
 
-  text[0].forEach(textNode => {
+  text[0].forEach((textNode) => {
     const text = d3.select(textNode)
     const x = text.attr('x')
     const y = text.attr('y')
@@ -16,8 +16,33 @@ module.exports = function wrapText(text, width) {
     const lineHeight = 1.1
     const words = text
       .text()
+      .slice(0, 95)
       .split(/\s+/)
-      .reverse()
+      .reduce(breakLongWords, [])
+
+    function breakLongWords(acc, word) {
+      if (word.length <= 13) return [...acc, word]
+
+      const matches = word.match(/.{1,12}/g)
+
+      return [
+        ...acc,
+        ...matches.map(addDashToWordExceptLast(matches.length - 1)),
+      ]
+    }
+
+    function addDashToWordExceptLast(lastIndex) {
+      return function (word, index) {
+        if (index === lastIndex) return word
+        return `${word}-`
+      }
+    }
+
+    words.reverse()
+
+    if (text.text().length > 95) {
+      words.unshift('...')
+    }
 
     let lineNumber = 0
     let word
@@ -45,6 +70,7 @@ module.exports = function wrapText(text, width) {
           .attr('y', y)
           .attr('dy', ++lineNumber * lineHeight + dy + 'em')
           .text(word)
+        // console.log(word)
       }
     }
 

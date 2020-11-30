@@ -112,7 +112,7 @@ function render(config) {
 
   const namePos = {
     x: nodeWidth / 2,
-    y: nodePaddingY * 1.8 + avatarWidth,
+    y: nodePaddingY * 1.2,
   }
 
   const avatarPos = {
@@ -145,7 +145,7 @@ function render(config) {
     .style('fill', titleColor)
     .text(d => d.person.title)
 
-  const heightForTitle = 60 // getHeightForText(d.person.title)
+  const heightForTitle = 120 // getHeightForText(d.person.title)
 
   // Person's Reports
   nodeEnter

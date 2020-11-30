@@ -4,11 +4,11 @@ export const tree = {
   id: 100,
   person: {
     id: 100,
-    avatar: avatarPersonnel,
     department: '',
-    name: 'Henry monger',
+    name:
+      'НельзяТакПростоВзятьИРешитьПроблему электромеханического привода Henry monger Henry monger Henry monger',
+    totalReports: 10,
     title: 'Manager',
-    totalReports: 21,
   },
   hasChild: true,
   hasParent: true,
@@ -20,10 +20,8 @@ export const tree1 = [
     id: 36,
     person: {
       id: 36,
-      avatar: avatarPersonnel,
-      department: '',
-      name: 'Tomasz polaski',
-      title: 'IT Specialist',
+      name:
+        'Положение компании Салым Петролеум Девеломпент по системе управления охраной труда | в компании Салым Петролеум Девеломпент',
       totalReports: 4,
     },
     hasChild: true,

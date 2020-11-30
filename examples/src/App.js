@@ -124,6 +124,9 @@ export default class App extends React.Component {
   }
 
   render() {
+    // const smth = ['высокопроизводительный', 'высокотехнологичный', 'комп']
+    // console.log(smth[0].concat('-'))
+
     const { tree, downloadingChart } = this.state
 
     //For downloading org chart as image or pdf based on id
