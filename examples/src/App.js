@@ -81,6 +81,48 @@ export default class App extends React.Component {
     return config
   }
 
+  getPluralsText = (datum) => {
+    const locale = 'en'
+
+    const {
+      person: { totalReports },
+    } = datum
+
+    if (locale === 'ru') {
+      const pluralTextForTitle = {
+        one: 'документ',
+        few: 'документа',
+        many: 'документов',
+        other: 'документы',
+      }
+
+      if (totalReports % 10 == 1 && totalReports % 11 !== 11)
+        return totalReports + ' ' + pluralTextForTitle.one
+      if (totalReports % 10 >= 2 && totalReports % 10 <= 4)
+        return totalReports + ' ' + pluralTextForTitle.few
+      if (
+        totalReports % 10 == 0 ||
+        (totalReports % 10 >= 5 && totalReports % 10 <= 9) ||
+        (totalReports % 100 >= 11 && totalReports <= 14)
+      )
+        return totalReports + ' ' + pluralTextForTitle.many
+      else return totalReports + ' ' + pluralTextForTitle.other
+    }
+
+    if (locale === 'en') {
+      const pluralTextForTitle = {
+        one: 'document',
+        other: 'documents',
+      }
+      if (totalReports == 1) {
+        return totalReports + ' ' + pluralTextForTitle.one
+      }
+      if (totalReports > 1) {
+        return totalReports + ' ' + pluralTextForTitle.other
+      }
+    }
+  }
+
   render() {
     // const smth = ['высокопроизводительный', 'высокотехнологичный', 'комп']
     // console.log(smth[0].concat('-'))
@@ -126,6 +168,7 @@ export default class App extends React.Component {
             </div>
             <OrgChart
               tree={tree}
+              getPluralsText={(datum) => this.getPluralsText(datum)}
               downloadImageId={downloadImageId}
               downloadPdfId={downloadPdfId}
               onConfigChange={(config) => {

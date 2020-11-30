@@ -8,6 +8,7 @@ export const tree = {
     name:
       'НельзяТакПростоВзятьИРешитьПроблему электромеханического привода Henry monger Henry monger Henry monger',
     totalReports: 10,
+    title: 'Manager',
   },
   hasChild: true,
   hasParent: true,
