@@ -130,7 +130,7 @@ function render(config) {
     .attr('y', namePos.y)
     .attr('dy', '.3em')
     //.style('cursor', 'pointer')
-    .style('fill', nameColor)
+    .style('fill', (d) => d.person.color || nameColor)
     .style('font-size', 14)
     .text((d) => d.person.name)
   // .on('click', onParentClick(config))
@@ -159,7 +159,8 @@ function render(config) {
     .style('font-size', 14)
     .style('font-weight', 400)
     .style('cursor', 'pointer')
-    .style('fill', reportsColor)
+    .style('fill', (d) => d.person.color || reportsColor)
+    .style('opacity', 0.67)
     .text(helpers.getTextForTitle(config))
     .on('click', onClick(config))
 
@@ -216,8 +217,8 @@ function render(config) {
 
   nodeUpdate
     .select('rect.box')
-    .attr('fill', backgroundColor)
-    .attr('stroke', borderColor)
+    .attr('fill', (d) => d.person.fill || backgroundColor)
+    .attr('stroke', (d) => d.person.stroke || borderColor)
 
   // Transition exiting nodes to the parent's new position.
   const nodeExit = node

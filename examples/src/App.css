@@ -24,7 +24,7 @@ body {
   fill: red !important;
 }
 .org-chart-person-reports:hover {
-  fill: red !important;
+  opacity: 1 !important;
 }
 .org-chart-person-dept.engineering {
   fill: #4caf50 !important;
