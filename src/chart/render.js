@@ -41,7 +41,7 @@ function render(config) {
     margin,
     onConfigChange,
     onNodeClick,
-    getPluralsText
+    getPluralsText,
   } = config
 
   // Compute the new tree layout.
@@ -52,14 +52,15 @@ function render(config) {
   config.nodes = nodes
 
   // Normalize for fixed-depth.
-  nodes.forEach(function(d) {
+  nodes.forEach(function (d) {
     d.y = d.depth * lineDepthY
   })
 
   // Update the nodes
-  const node = svg
-    .selectAll('g.' + CHART_NODE_CLASS)
-    .data(nodes.filter(d => d.id), d => d.id)
+  const node = svg.selectAll('g.' + CHART_NODE_CLASS).data(
+    nodes.filter((d) => d.id),
+    (d) => d.id
+  )
 
   const parentNode = sourceNode || treeData
 
@@ -73,13 +74,16 @@ function render(config) {
     y: -24,
   })
 
+  console.log(config)
+  console.log(config.svg[0][0])
+
   // Enter any new nodes at the parent's previous position.
   const nodeEnter = node
     .enter()
     .insert('g')
     .attr('class', CHART_NODE_CLASS)
     .attr('transform', `translate(${parentNode.x0}, ${parentNode.y0})`)
-    .on('click', node => {
+    .on('click', (node) => {
       if (d3.event.defaultPrevented) return
 
       typeof onNodeClick === 'function' && onNodeClick(node)
@@ -101,10 +105,10 @@ function render(config) {
   // Person Card Container
   nodeEnter
     .append('rect')
-    .attr('class', d => (d.isHighlight ? `${PERSON_HIGHLIGHT} box` : 'box'))
+    .attr('class', (d) => (d.isHighlight ? `${PERSON_HIGHLIGHT} box` : 'box'))
     .attr('width', nodeWidth)
     .attr('height', nodeHeight)
-    .attr('id', d => d.id)
+    .attr('id', (d) => d.id)
     .attr('fill', backgroundColor)
     .attr('stroke', borderColor)
     .attr('rx', nodeBorderRadius)
@@ -130,7 +134,7 @@ function render(config) {
     //.style('cursor', 'pointer')
     .style('fill', nameColor)
     .style('font-size', 14)
-    .text(d => d.person.name)
+    .text((d) => d.person.name)
   // .on('click', onParentClick(config))
 
   // Person's Title
@@ -143,7 +147,7 @@ function render(config) {
     .style('font-size', 12)
     //.style('cursor', 'pointer')
     .style('fill', titleColor)
-    .text(d => d.person.title)
+    .text((d) => d.person.title)
 
   const heightForTitle = 120 // getHeightForText(d.person.title)
 
@@ -151,8 +155,8 @@ function render(config) {
   nodeEnter
     .append('text')
     .attr('class', PERSON_REPORTS_CLASS)
-    .attr('x', nodePaddingX + 8)
-    .attr('y', namePos.y + nodePaddingY + heightForTitle)
+    .attr('x', nodePaddingX + 72)
+    .attr('y', namePos.y + heightForTitle - 25)
     .attr('dy', '.9em')
     .style('font-size', 14)
     .style('font-weight', 400)
@@ -164,17 +168,17 @@ function render(config) {
   // Person's Avatar
   nodeEnter
     .append('image')
-    .attr('id', d => `image-${d.id}`)
+    .attr('id', (d) => `image-${d.id}`)
     .attr('width', avatarWidth)
     .attr('height', avatarWidth)
     .attr('x', avatarPos.x)
     .attr('y', avatarPos.y)
     .attr('stroke', borderColor)
-    .attr('s', d => {
+    .attr('s', (d) => {
       d.person.hasImage
         ? d.person.avatar
-        : loadImage(d).then(res => {
-            covertImageToBase64(res, function(dataUrl) {
+        : loadImage(d).then((res) => {
+            covertImageToBase64(res, function (dataUrl) {
               d3.select(`#image-${d.id}`).attr('href', dataUrl)
               d.person.avatar = dataUrl
             })
@@ -182,17 +186,17 @@ function render(config) {
             return d.person.avatar
           })
     })
-    .attr('src', d => d.person.avatar)
-    .attr('href', d => d.person.avatar)
+    .attr('src', (d) => d.person.avatar)
+    .attr('href', (d) => d.person.avatar)
     .attr('clip-path', 'url(#avatarClip)')
 
   // Person's Link
   const nodeLink = nodeEnter
     .append('a')
     .attr('class', PERSON_LINK_CLASS)
-    .attr('display', d => (d.person.link ? '' : 'none'))
-    .attr('xlink:href', d => d.person.link)
-    .on('click', datum => {
+    .attr('display', (d) => (d.person.link ? '' : 'none'))
+    .attr('xlink:href', (d) => d.person.link)
+    .on('click', (datum) => {
       d3.event.stopPropagation()
       // TODO: fire link click handler
       if (onPersonLinkClick) {
@@ -210,7 +214,7 @@ function render(config) {
   const nodeUpdate = node
     .transition()
     .duration(animationDuration)
-    .attr('transform', d => `translate(${d.x},${d.y})`)
+    .attr('transform', (d) => `translate(${d.x},${d.y})`)
 
   nodeUpdate
     .select('rect.box')
@@ -222,14 +226,14 @@ function render(config) {
     .exit()
     .transition()
     .duration(animationDuration)
-    .attr('transform', d => `translate(${parentNode.x},${parentNode.y})`)
+    .attr('transform', (d) => `translate(${parentNode.x},${parentNode.y})`)
     .remove()
 
   // Update the links
-  const link = svg.selectAll('path.link').data(links, d => d.target.id)
+  const link = svg.selectAll('path.link').data(links, (d) => d.target.id)
 
   // Wrap the title texts
-  const wrapWidth = 124
+  const wrapWidth = 250
   svg.selectAll('text.unedited.' + PERSON_NAME_CLASS).call(wrapText, wrapWidth)
   svg.selectAll('text.unedited.' + PERSON_TITLE_CLASS).call(wrapText, wrapWidth)
 
@@ -237,7 +241,7 @@ function render(config) {
   renderLines(config)
 
   // Stash the old positions for transition.
-  nodes.forEach(function(d) {
+  nodes.forEach(function (d) {
     d.x0 = d.x
     d.y0 = d.y
   })
@@ -245,7 +249,7 @@ function render(config) {
   var nodeLeftX = -70
   var nodeRightX = 70
   var nodeY = 200
-  nodes.map(d => {
+  nodes.map((d) => {
     nodeLeftX = d.x < nodeLeftX ? d.x : nodeLeftX
     nodeRightX = d.x > nodeRightX ? d.x : nodeRightX
     nodeY = d.y > nodeY ? d.y : nodeY
@@ -255,11 +259,11 @@ function render(config) {
   config.nodeY = nodeY
   config.nodeLeftX = nodeLeftX * -1
 
-  d3.select(downloadImageId).on('click', function() {
+  d3.select(downloadImageId).on('click', function () {
     exportOrgChartImage(config)
   })
 
-  d3.select(downloadPdfId).on('click', function() {
+  d3.select(downloadPdfId).on('click', function () {
     exportOrgChartPdf(config)
   })
   onConfigChange(config)
