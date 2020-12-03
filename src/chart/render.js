@@ -54,7 +54,7 @@ function render(config) {
   // Normalize for fixed-depth.
   nodes.forEach(function (d) {
     d.y = d.depth * lineDepthY
-    d.x = d.x - 100
+    d.x = d.x - 100 // Moves whole three to left
   })
 
   // Update the nodes
@@ -153,8 +153,8 @@ function render(config) {
   nodeEnter
     .append('text')
     .attr('class', PERSON_REPORTS_CLASS)
-    .attr('x', nodePaddingX + 72)
-    .attr('y', namePos.y + heightForTitle - 25)
+    .attr('x', nodePaddingX + 72) // Moves to right.
+    .attr('y', namePos.y + heightForTitle - 25) // Moves to top.
     .attr('dy', '.9em')
     .style('font-size', 14)
     .style('font-weight', 400)

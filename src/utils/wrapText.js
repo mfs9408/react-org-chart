@@ -18,27 +18,7 @@ module.exports = function wrapText(text, width) {
       .text()
       .slice(0, 160)
       .split(/\s+/)
-      .reduce(breakLongWords, [])
-
-    function breakLongWords(acc, word) {
-      if (word.length <= 30) return [...acc, word]
-
-      const matches = word.match(/.{1,30}/g)
-
-      return [
-        ...acc,
-        ...matches.map(addDashToWordExceptLast(matches.length - 1)),
-      ]
-    }
-
-    function addDashToWordExceptLast(lastIndex) {
-      return function (word, index) {
-        if (index === lastIndex) return word
-        return `${word}-`
-      }
-    }
-
-    words.reverse()
+      .reverse()
 
     if (text.text().length > 160) {
       words.unshift('...')
