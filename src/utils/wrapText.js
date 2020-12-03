@@ -16,31 +16,11 @@ module.exports = function wrapText(text, width) {
     const lineHeight = 1.1
     const words = text
       .text()
-      .slice(0, 95)
+      .slice(0, 160)
       .split(/\s+/)
-      .reduce(breakLongWords, [])
+      .reverse()
 
-    function breakLongWords(acc, word) {
-      if (word.length <= 13) return [...acc, word]
-
-      const matches = word.match(/.{1,12}/g)
-
-      return [
-        ...acc,
-        ...matches.map(addDashToWordExceptLast(matches.length - 1)),
-      ]
-    }
-
-    function addDashToWordExceptLast(lastIndex) {
-      return function (word, index) {
-        if (index === lastIndex) return word
-        return `${word}-`
-      }
-    }
-
-    words.reverse()
-
-    if (text.text().length > 95) {
+    if (text.text().length > 160) {
       words.unshift('...')
     }
 
@@ -70,7 +50,6 @@ module.exports = function wrapText(text, width) {
           .attr('y', y)
           .attr('dy', ++lineNumber * lineHeight + dy + 'em')
           .text(word)
-        // console.log(word)
       }
     }
 
