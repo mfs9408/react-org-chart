@@ -54,6 +54,7 @@ function render(config) {
   // Normalize for fixed-depth.
   nodes.forEach(function (d) {
     d.y = d.depth * lineDepthY
+    d.x = d.x - 100
   })
 
   // Update the nodes
@@ -73,9 +74,6 @@ function render(config) {
     x: 70,
     y: -24,
   })
-
-  console.log(config)
-  console.log(config.svg[0][0])
 
   // Enter any new nodes at the parent's previous position.
   const nodeEnter = node
