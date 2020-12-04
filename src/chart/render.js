@@ -54,7 +54,7 @@ function render(config) {
   // Normalize for fixed-depth.
   nodes.forEach(function (d) {
     d.y = d.depth * lineDepthY
-    d.x = d.x - 100 // Moves whole three to left
+    d.x = d.x - 130 // Moves whole three to left
   })
 
   // Update the nodes

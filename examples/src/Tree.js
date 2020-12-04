@@ -34,6 +34,36 @@ export const tree1 = [
     // children: [],
   },
   {
+    id: 136,
+    person: {
+      id: 136,
+      name:
+        'Положение компании Салым Петролеум Девеломпент по системе управления охраной труда | в компании Салым Петролеум Девеломпент',
+      totalReports: 4,
+      fill: '#5f005f',
+      stroke: '#ffffff',
+      color: '#fff',
+    },
+    hasChild: true,
+    hasParent: true,
+    // children: [],
+  },
+  {
+    id: 236,
+    person: {
+      id: 236,
+      name:
+        'Положение компании Салым Петролеум Девеломпент по системе управления охраной труда | в компании Салым Петролеум Девеломпент',
+      totalReports: 4,
+      fill: '#5f005f',
+      stroke: '#ffffff',
+      color: '#fff',
+    },
+    hasChild: true,
+    hasParent: true,
+    // children: [],
+  },
+  {
     id: 32,
     person: {
       id: 32,
