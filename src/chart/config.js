@@ -9,6 +9,8 @@ const nodePaddingX = 16
 const nodePaddingY = 16
 const avatarWidth = 48
 const nodeBorderRadius = 4
+const wideBorder = 3
+const border = 1
 const margin = {
   top: 20,
   right: 20,
@@ -36,6 +38,8 @@ const config = {
   nodePaddingX,
   nodePaddingY,
   nodeBorderRadius,
+  wideBorder,
+  border,
   avatarWidth,
   lineType,
   lineDepthY,

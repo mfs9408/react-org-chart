@@ -24,6 +24,8 @@ function render(config) {
     nodePaddingX,
     nodePaddingY,
     nodeBorderRadius,
+    wideBorder,
+    border,
     backgroundColor,
     nameColor,
     titleColor,
@@ -219,6 +221,7 @@ function render(config) {
     .select('rect.box')
     .attr('fill', (d) => d.person.fill || backgroundColor)
     .attr('stroke', (d) => d.person.stroke || borderColor)
+    .attr('stroke-width', (d) => (d.person.stroke ? wideBorder : border))
 
   // Transition exiting nodes to the parent's new position.
   const nodeExit = node
